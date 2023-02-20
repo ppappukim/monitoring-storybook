@@ -1,17 +1,18 @@
 <template>
-  <button type="button" :class="classes" @click="onClick" :style="style">{{ label }}</button>
+  <slot type="button" :class="classes" @click="onClick" :style="style">{{label}}</slot>
 </template>
 
 <script>
+
 import { reactive, computed } from 'vue';
 
 export default {
-  name: 'my-button',
+  name: 'ckt-button',
 
   props: {
     label: {
       type: String,
-      required: true,
+      // required: true,
     },
     primary: {
       type: Boolean,
@@ -29,6 +30,9 @@ export default {
   },
 
   emits: ['click'],
+  // styles: [`
+  //   :host {background-color:red;}
+  // `],
 
   setup(props, { emit }) {
     props = reactive(props);
@@ -47,11 +51,12 @@ export default {
       }
     }
   },
-};
+}
+
 </script>
 
-<style scoped>
-.storybook-button {
+<style>
+:host {
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
   border: 0;

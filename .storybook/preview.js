@@ -1,3 +1,6 @@
+// * For using vue custom element with storybook
+import '../src/stories/_index'
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
