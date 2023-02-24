@@ -14,10 +14,10 @@ export default {
       type: String,
       // required: true,
     },
-    primary: {
-      type: Boolean,
-      default: false,
-    },
+    // primary: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     size: {
       type: String,
       validator: function (value) {
