@@ -1,0 +1,259 @@
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  /* General */
+  --color-primary: #1E88E5;
+  --color-primary-shade: #1a78ca;
+  --color-primary-tint: #3594e8;
+  --color-primary-opacity-1: rgba(30, 136, 229, .1);
+  --color-primary-opacity-2: rgba(30, 136, 229, .2);
+  --color-primary-opacity-3: rgba(30, 136, 229, .3);
+  --color-primary-opacity-4: rgba(30, 136, 229, .4);
+  --color-primary-opacity-5: rgba(30, 136, 229, .5);
+  --color-primary-opacity-6: rgba(30, 136, 229, .6);
+  --color-primary-opacity-7: rgba(30, 136, 229, .7);
+  --color-primary-opacity-8: rgba(30, 136, 229, .8);
+  --color-primary-opacity-9: rgba(30, 136, 229, .9);
+
+  --color-secondary: #FF7F16;
+  --color-secondary-shade: #e07013;
+  --color-secondary-tint: #ff8c2d;
+  --color-secondary-opacity-1: rgb(255, 127, 22, .1);
+  --color-secondary-opacity-2: rgb(255, 127, 22, .2);
+  --color-secondary-opacity-3: rgb(255, 127, 22, .3);
+  --color-secondary-opacity-4: rgb(255, 127, 22, .4);
+  --color-secondary-opacity-5: rgb(255, 127, 22, .5);
+  --color-secondary-opacity-6: rgb(255, 127, 22, .6);
+  --color-secondary-opacity-7: rgb(255, 127, 22, .7);
+  --color-secondary-opacity-8: rgb(255, 127, 22, .8);
+  --color-secondary-opacity-9: rgb(255, 127, 22, .9);
+
+  --color-success: #2da44e;
+  --color-success-shade: #289045;
+  --color-success-tint: #42ad60;
+  --color-success-opacity-1: rgb(45, 164, 78, .1);
+  --color-success-opacity-2: rgb(45, 164, 78, .2);
+  --color-success-opacity-3: rgb(45, 164, 78, .3);
+  --color-success-opacity-4: rgb(45, 164, 78, .4);
+  --color-success-opacity-5: rgb(45, 164, 78, .5);
+  --color-success-opacity-6: rgb(45, 164, 78, .6);
+  --color-success-opacity-7: rgb(45, 164, 78, .7);
+  --color-success-opacity-8: rgb(45, 164, 78, .8);
+  --color-success-opacity-9: rgb(45, 164, 78, .9);
+
+  --color-warning: #ff9d00;
+  --color-warning-shade: #e08a00;
+  --color-warning-tint: #ffa71a;
+  --color-warning-opacity-1: rgb(255, 157, 0, .1);
+  --color-warning-opacity-2: rgb(255, 157, 0, .2);
+  --color-warning-opacity-3: rgb(255, 157, 0, .3);
+  --color-warning-opacity-4: rgb(255, 157, 0, .4);
+  --color-warning-opacity-5: rgb(255, 157, 0, .5);
+  --color-warning-opacity-6: rgb(255, 157, 0, .6);
+  --color-warning-opacity-7: rgb(255, 157, 0, .7);
+  --color-warning-opacity-8: rgb(255, 157, 0, .8);
+  --color-warning-opacity-9: rgb(255, 157, 0, .9);
+
+  --color-danger: #ea4e43;
+  --color-danger-shade: #ce453b;
+  --color-danger-tint: #ec6056;
+  --color-danger-opacity-1: rgb(234, 78, 67, .1);
+  --color-danger-opacity-2: rgb(234, 78, 67, .2);
+  --color-danger-opacity-3: rgb(234, 78, 67, .3);
+  --color-danger-opacity-4: rgb(234, 78, 67, .4);
+  --color-danger-opacity-5: rgb(234, 78, 67, .5);
+  --color-danger-opacity-6: rgb(234, 78, 67, .6);
+  --color-danger-opacity-7: rgb(234, 78, 67, .7);
+  --color-danger-opacity-8: rgb(234, 78, 67, .8);
+  --color-danger-opacity-9: rgb(234, 78, 67, .9);
+
+  --color-white: #ffffff;
+  --color-white-shade: #e0e0e0;
+  --color-white-tint: #ffffff;
+  --color-white-opacity-1: rgb(255, 255, 255, .1);
+  --color-white-opacity-2: rgb(255, 255, 255, .2);
+  --color-white-opacity-3: rgb(255, 255, 255, .3);
+  --color-white-opacity-4: rgb(255, 255, 255, .4);
+  --color-white-opacity-5: rgb(255, 255, 255, .5);
+  --color-white-opacity-6: rgb(255, 255, 255, .6);
+  --color-white-opacity-7: rgb(255, 255, 255, .7);
+  --color-white-opacity-8: rgb(255, 255, 255, .8);
+  --color-white-opacity-9: rgb(255, 255, 255, .9);
+
+  --color-black: #121212;
+  --color-black-shade: #101010;
+  --color-black-tint: #2a2a2a;
+  --color-black-opacity-1: rgb(18, 18, 18, .1);
+  --color-black-opacity-2: rgb(18, 18, 18, .2);
+  --color-black-opacity-3: rgb(18, 18, 18, .3);
+  --color-black-opacity-4: rgb(18, 18, 18, .4);
+  --color-black-opacity-5: rgb(18, 18, 18, .5);
+  --color-black-opacity-6: rgb(18, 18, 18, .6);
+  --color-black-opacity-7: rgb(18, 18, 18, .7);
+  --color-black-opacity-8: rgb(18, 18, 18, .8);
+  --color-black-opacity-9: rgb(18, 18, 18, .9);
+
+
+
+  /* Arming Type */
+  --color-armed: #FF7F16;
+  --color-armed-shade: #E07013;
+  --color-armed-tint: #FF8C2D;
+  --color-armed-opacity-1: rgba(255, 127, 22, 0.1);
+  --color-armed-opacity-2: rgba(255, 127, 22, 0.2);
+  --color-armed-opacity-3: rgba(255, 127, 22, 0.3);
+  --color-armed-opacity-4: rgba(255, 127, 22, 0.4);
+  --color-armed-opacity-5: rgba(255, 127, 22, 0.5);
+  --color-armed-opacity-6: rgba(255, 127, 22, 0.6);
+  --color-armed-opacity-7: rgba(255, 127, 22, 0.7);
+  --color-armed-opacity-8: rgba(255, 127, 22, 0.8);
+  --color-armed-opacity-9: rgba(255, 127, 22, 0.9);
+  
+  --color-partially-armed: #f3ae00;
+  --color-partially-armed-shade: #d69900;
+  --color-partially-armed-tint: #f4b61a;
+  --color-partially-opacity-1: rgb(243, 174, 0, .1);
+  --color-partially-opacity-2: rgb(243, 174, 0, .2);
+  --color-partially-opacity-3: rgb(243, 174, 0, .3);
+  --color-partially-opacity-4: rgb(243, 174, 0, .4);
+  --color-partially-opacity-5: rgb(243, 174, 0, .5);
+  --color-partially-opacity-6: rgb(243, 174, 0, .6);
+  --color-partially-opacity-7: rgb(243, 174, 0, .7);
+  --color-partially-opacity-8: rgb(243, 174, 0, .8);
+  --color-partially-opacity-9: rgb(243, 174, 0, .9);
+  
+
+  --color-disarmed: #1EA675;
+  --color-disarmed-shade: #1A9267;
+  --color-disarmed-tint: #35AF83;
+  --color-disarmed-opacity-1: rgba(30, 166, 117, 0.1);
+  --color-disarmed-opacity-2: rgba(30, 166, 117, 0.2);
+  --color-disarmed-opacity-3: rgba(30, 166, 117, 0.3);
+  --color-disarmed-opacity-4: rgba(30, 166, 117, 0.4);
+  --color-disarmed-opacity-5: rgba(30, 166, 117, 0.5);
+  --color-disarmed-opacity-6: rgba(30, 166, 117, 0.6);
+  --color-disarmed-opacity-7: rgba(30, 166, 117, 0.7);
+  --color-disarmed-opacity-8: rgba(30, 166, 117, 0.8);
+  --color-disarmed-opacity-9: rgba(30, 166, 117, 0.9);
+
+  /* Event Type */
+  --color-alarm: #542929;
+  --color-alarm-shade: #8a4646;
+  --color-alarm-tint: #a76161;
+  --color-alarm-opacity-1: rgb(84, 41, 41, .1);
+  --color-alarm-opacity-2: rgb(84, 41, 41, .2);
+  --color-alarm-opacity-3: rgb(84, 41, 41, .3);
+  --color-alarm-opacity-4: rgb(84, 41, 41, .4);
+  --color-alarm-opacity-5: rgb(84, 41, 41, .5);
+  --color-alarm-opacity-6: rgb(84, 41, 41, .6);
+  --color-alarm-opacity-7: rgb(84, 41, 41, .7);
+  --color-alarm-opacity-8: rgb(84, 41, 41, .8);
+  --color-alarm-opacity-9: rgb(84, 41, 41, .9);
+
+  --color-playback: #395371;
+  --color-playback-shade: #324963;
+  --color-playback-tint: #4d647f;
+  --color-playback-opacity-1: rgb(57, 83, 113, .1);
+  --color-playback-opacity-2: rgb(57, 83, 113, .2);
+  --color-playback-opacity-3: rgb(57, 83, 113, .3);
+  --color-playback-opacity-4: rgb(57, 83, 113, .4);
+  --color-playback-opacity-5: rgb(57, 83, 113, .5);
+  --color-playback-opacity-6: rgb(57, 83, 113, .6);
+  --color-playback-opacity-7: rgb(57, 83, 113, .7);
+  --color-playback-opacity-8: rgb(57, 83, 113, .8);
+  --color-playback-opacity-9: rgb(57, 83, 113, .9);
+
+  --color-restore: #2A68A5;
+  --color-restore-shade: #255c91;
+  --color-restore-tint: #3f77ae;
+  --color-restore-opacity-1: rgb(42, 104, 165, .1);
+  --color-restore-opacity-2: rgb(42, 104, 165, .2);
+  --color-restore-opacity-3: rgb(42, 104, 165, .3);
+  --color-restore-opacity-4: rgb(42, 104, 165, .4);
+  --color-restore-opacity-5: rgb(42, 104, 165, .5);
+  --color-restore-opacity-6: rgb(42, 104, 165, .6);
+  --color-restore-opacity-7: rgb(42, 104, 165, .7);
+  --color-restore-opacity-8: rgb(42, 104, 165, .8);
+  --color-restore-opacity-9: rgb(42, 104, 165, .9);
+
+  --color-verification: #492f64;
+  --color-verification-shade: #402958;
+  --color-verification-tint: #5b4474;
+  --color-verification-opacity-1: rgb(73, 47, 100, .1);
+  --color-verification-opacity-2: rgb(73, 47, 100, .2);
+  --color-verification-opacity-3: rgb(73, 47, 100, .3);
+  --color-verification-opacity-4: rgb(73, 47, 100, .4);
+  --color-verification-opacity-5: rgb(73, 47, 100, .5);
+  --color-verification-opacity-6: rgb(73, 47, 100, .6);
+  --color-verification-opacity-7: rgb(73, 47, 100, .7);
+  --color-verification-opacity-8: rgb(73, 47, 100, .8);
+  --color-verification-opacity-9: rgb(73, 47, 100, .9);
+
+  --color-relay: #33969d;
+  --color-relay-shade: #5ca56c;
+  --color-relay-tint: #78c288;
+  --color-relay-opacity-1: rgb(51, 150, 157, .1);
+  --color-relay-opacity-2: rgb(51, 150, 157, .2);
+  --color-relay-opacity-3: rgb(51, 150, 157, .3);
+  --color-relay-opacity-4: rgb(51, 150, 157, .4);
+  --color-relay-opacity-5: rgb(51, 150, 157, .5);
+  --color-relay-opacity-6: rgb(51, 150, 157, .6);
+  --color-relay-opacity-7: rgb(51, 150, 157, .7);
+  --color-relay-opacity-8: rgb(51, 150, 157, .8);
+  --color-relay-opacity-9: rgb(51, 150, 157, .9);
+
+  --color-note: #E0C42F;
+  --color-note-shade: #c5ac29;
+  --color-note-tint: #e3ca44;
+  --color-note-opacity-1: rgb(224, 196, 47, .1);
+  --color-note-opacity-2: rgb(224, 196, 47, .2);
+  --color-note-opacity-3: rgb(224, 196, 47, .3);
+  --color-note-opacity-4: rgb(224, 196, 47, .4);
+  --color-note-opacity-5: rgb(224, 196, 47, .5);
+  --color-note-opacity-6: rgb(224, 196, 47, .6);
+  --color-note-opacity-7: rgb(224, 196, 47, .7);
+  --color-note-opacity-8: rgb(224, 196, 47, .8);
+  --color-note-opacity-9: rgb(224, 196, 47, .9);
+
+  --color-onvif: #1a3b60;
+  --color-sensor: rgba(255, 255, 255, .87);
+  --color-ai: rgba(255, 255, 255, .87);
+
+  /* Others */
+  --color-surface-1: #202020;
+  --color-surface-2: #2a2a2a;
+  --color-surface-3: #353535;
+  --color-surface-4: #34363a;
+  --color-surface-5: #383a3e;
+  
+  --color-background: #191919;
+  --color-border: rgba(255, 255, 255, .1);
+
+  --color-icon-hover: rgba(255, 255, 255, .15);
+  --color-icon-active: rgba(255, 255, 255, .3);
+  --color-menu-hover: rgba(255, 255, 255, .1);
+  --color-menu-active: rgba(255, 255, 255, .2);
+  --color-event-hover: rgba(255, 255, 255, .05);
+  --color-event-active: rgba(255, 255, 255, .1);
+  --color-live-hover: rgba(255, 255, 255, .5);
+  --color-live-active: rgba(255, 255, 255, .87);
+
+  --color-text-high: #F1F1F1;
+  --color-text-middle: #A9A9A9;
+  --color-text-low: #A9A9A9;
+
+  --color-text-contrast-high: rgba(0, 0, 0, 0.87);
+  --color-text-contrast-middle: rgba(0, 0, 0, 0.6);
+  --color-text-contrast-low: rgba(0, 0, 0, 0.38);
+
+  --color-tooltip-background: #101010;
+  --color-app-background: rgba(0, 0, 0, 0.5);
+
+  --color-action-button: #BEBEBE;
+  --color-action-button-hover: #d5d5d5;
+  --color-action-button-active: #b4b4b4;
+}

@@ -1,24 +1,24 @@
-import { cButton } from './Button.js';
+import { cLabel } from './Label';
 
 export default {
-  title: 'Example/Button',
-  component: cButton,
+  title: 'Example/Label',
+  component: cLabel,
   argTypes: {
     label: {
       control: { type: 'text' },
     },
     size: {
       control: { type: 'radio' },
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'xlarge'],
     },
     color: {
       control: { type: 'radio' },
-      options: ['primary', 'success', 'danger', 'warning', 'white', 'black'],
+      options: ['primary', 'success', 'danger', 'warning', 'alarm', 'relay', 'verification', 'restore', 'playback', 'note'],
     },
-    type: {
-      control: { type: 'radio' },
-      options: ['fill', 'outline'],
-    },
+    // type: {
+    //   control: { type: 'radio' },
+    //   options: ['fill', 'outline'],
+    // },
     disabled: {
       control: { type: 'boolean' },
     },
@@ -31,13 +31,12 @@ const Template = (args) => ({
   // setup() {
   //   return { args };
   // },
-  template: `<c-button type="${args.type}" color="${args.color}" size="${args.size}" disabled=${args.disabled}>${args.label}</c-button>`,
+  template: `<c-label color="${args.color}" size="${args.size}" disabled=${args.disabled}>${args.label}</c-label>`,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Button',
-  type: 'fill',
+  label: 'Label',
   color: 'primary',
   size: 'medium',
   disabled: false,

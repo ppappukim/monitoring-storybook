@@ -1,6 +1,6 @@
+import './style.css'
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@/stories/_index'
 
 // console.log(cktButton);
 
