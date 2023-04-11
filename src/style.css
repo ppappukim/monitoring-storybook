@@ -9,6 +9,7 @@ body {
   --color-primary: #1E88E5;
   --color-primary-shade: #1a78ca;
   --color-primary-tint: #3594e8;
+  
   --color-primary-opacity-1: rgba(30, 136, 229, .1);
   --color-primary-opacity-2: rgba(30, 136, 229, .2);
   --color-primary-opacity-3: rgba(30, 136, 229, .3);
@@ -18,6 +19,16 @@ body {
   --color-primary-opacity-7: rgba(30, 136, 229, .7);
   --color-primary-opacity-8: rgba(30, 136, 229, .8);
   --color-primary-opacity-9: rgba(30, 136, 229, .9);
+
+  --color-primary-1: #E0EBF4;
+  --color-primary-2: #CADFF2;
+  --color-primary-3: #B5D5F1;
+  --color-primary-4: #9FC9EF;
+  --color-primary-5: #89BEEC;
+  --color-primary-6: #74B4EB;
+  --color-primary-7: #5FA9EA;
+  --color-primary-8: #499EE8;
+  --color-primary-9: #3493E7;
 
   --color-secondary: #FF7F16;
   --color-secondary-shade: #e07013;

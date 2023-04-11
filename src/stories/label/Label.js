@@ -69,7 +69,7 @@ export class cLabel extends HTMLElement {
         border-radius: 3px;
         width: fit-content;
         display: inline-flex;
-                flex-direction: row;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         font-weight: 500;
