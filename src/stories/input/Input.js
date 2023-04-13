@@ -2,7 +2,7 @@
 
 export class cInput extends HTMLElement {
   static get observedAttributes() { 
-    return [ 'color','size','disabled' ]
+    return [ 'color','size','disabled','checked' ]
   }
 
   constructor() {
@@ -10,11 +10,12 @@ export class cInput extends HTMLElement {
     super();
 
     // styles defualt
-    this._color = 'var(--color-text-high)'
-    this._backgroundColor = 'var(--color-surface-3)'
-    this._padding = '0 6px'
+    this._color = 'var(--color-text-contrast-high)'
+    this._backgroundColor = ''
+    this._padding = '0 10px'
     this._fontSize = '14px'
-    this._height = '20px'
+    this._width = '320px'
+    this._lineHeight = '36px'
 
     this.shadow = this.attachShadow({mode:'open'})
     const slot = document.createElement('slot');
@@ -24,9 +25,15 @@ export class cInput extends HTMLElement {
   }
 
   connectedCallback() {
+    // for add attribute for input feature
+    this.setAttribute('contenteditable', '');
+    this.setAttribute('spellcheck', true);
+    this.setAttribute('placeholder', 'Untitled');
+
     this.updateColor()
     this.updateSize()
     this.updateDisabled()
+    this.updateChecked()
   }
   rerederedCallback() {
     
@@ -41,6 +48,9 @@ export class cInput extends HTMLElement {
         break;
       case 'disabled':
         this.updateDisabled(newValue)
+        break;
+      case 'checked':
+        this.updateChecked(newValue)
         break;
       default:
         break;
@@ -63,19 +73,32 @@ export class cInput extends HTMLElement {
         background-color:${this._backgroundColor};
         padding:${this._padding};
         font-size: ${this._fontSize};
-        height:${this._height};
-        display: block;
-        white-space: nowrap;
         border-radius: 3px;
-        width: fit-content;
-        display: inline-flex;
+        width: ${this._width};
+        line-height: ${this._lineHeight};
+        display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
+        font-weight: 500;
+        box-shadow: var(--color-black-opacity-2) 0px 0px 0px 1px inset;
+        outline: none;
+      }
+      :host(:focus) {
+        box-shadow: var(--color-text-contrast-high) 0px 0px 0px 1px inset;
+      }
+      :host(:empty)::after {
+        content: attr(placeholder);
+        color: var(--color-text-contrast-low);
         font-weight: 500;
       }
       :host(.--disabled) {
-        opacity:.38;
+        pointer-events: none;
+        background-color: var(--color-black-opacity-1);
+        color: var(--color-text-contrast-middle);
+      }
+      :host(.--checked) {
+        background-color: var(--color-primary-opacity-1);
       }
     `
   }
@@ -107,7 +130,7 @@ export class cInput extends HTMLElement {
     switch (newValue) {
       case 'primary':
         this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-primary-opacity-3)'
+        this._backgroundColor = ''
         break
       case 'danger':
         this._color = 'var(--color-text-contrast-high)'
@@ -150,18 +173,6 @@ export class cInput extends HTMLElement {
     }
     this.updateStyle()
   }
-  // updateType(newValue) {
-  //   switch (newValue) {
-  //     case 'outline':
-  //       this._border = `solid 1px ${this._backgroundColor}`
-  //       this._color = `${this._backgroundColor}`
-  //       this._backgroundColor = `none`
-  //       break
-  //     default:
-  //       break;
-  //   }
-  //   this.updateStyle()
-  // }
   updateDisabled(newValue) {
     switch (newValue) {
       case 'true':
@@ -169,6 +180,17 @@ export class cInput extends HTMLElement {
         break
       case 'false':
         this.classList.remove('--disabled');
+        break
+    }
+    this.updateStyle()
+  }
+  updateChecked(newValue) {
+    switch (newValue) {
+      case 'true':
+        this.classList.add('--checked');
+        break
+      case 'false':
+        this.classList.remove('--checked');
         break
     }
     this.updateStyle()
