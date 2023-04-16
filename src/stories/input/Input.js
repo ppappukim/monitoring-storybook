@@ -2,7 +2,7 @@
 
 export class cInput extends HTMLElement {
   static get observedAttributes() { 
-    return [ 'color','size','disabled','checked' ]
+    return [ 'size','disabled','checked' ]
   }
 
   constructor() {
@@ -10,8 +10,6 @@ export class cInput extends HTMLElement {
     super();
 
     // styles defualt
-    this._color = 'var(--color-text-contrast-high)'
-    this._backgroundColor = ''
     this._padding = '0 10px'
     this._fontSize = '14px'
     this._width = '320px'
@@ -26,11 +24,9 @@ export class cInput extends HTMLElement {
 
   connectedCallback() {
     // for add attribute for input feature
-    this.setAttribute('contenteditable', '');
+    this.setAttribute('contenteditable', true);
     this.setAttribute('spellcheck', true);
-    this.setAttribute('placeholder', 'Untitled');
 
-    this.updateColor()
     this.updateSize()
     this.updateDisabled()
     this.updateChecked()
@@ -40,9 +36,6 @@ export class cInput extends HTMLElement {
   }
   attributeChangedCallback (atr, oldValue, newValue){
     switch (atr) {
-      case 'color':
-        this.updateColor(newValue)
-        break;
       case 'size':
         this.updateSize(newValue)
         break;
@@ -70,7 +63,6 @@ export class cInput extends HTMLElement {
     this.shadow.querySelector('style').textContent = `
       :host {
         color: ${this._color};
-        background-color:${this._backgroundColor};
         padding:${this._padding};
         font-size: ${this._fontSize};
         border-radius: 3px;
@@ -83,9 +75,12 @@ export class cInput extends HTMLElement {
         font-weight: 500;
         box-shadow: var(--color-black-opacity-2) 0px 0px 0px 1px inset;
         outline: none;
+        transition: box-shadow .2s;
+        overflow: hidden;
       }
       :host(:focus) {
         box-shadow: var(--color-text-contrast-high) 0px 0px 0px 1px inset;
+        transition: box-shadow .3s;
       }
       :host(:empty)::after {
         content: attr(placeholder);
@@ -105,68 +100,20 @@ export class cInput extends HTMLElement {
 
   updateSize(newValue) {
     switch (newValue) {
-      case 'xlarge':
+      case 'large':
         this._padding = '0 14px'
         this._fontSize = '18px'
-        this._height = '30px'
+        this._lineHeight = '42px'
         break
-      case 'large':
+      case 'medium':
         this._padding = '0 10px'
-        this._fontSize = '16px'
-        this._height = '26px'
+        this._fontSize = '14px'
+        this._lineHeight = '36px'
         break
       case 'small':
-        this._padding = '0 5px'
+        this._padding = '0 7px'
         this._fontSize = '12px'
-        this._height = '18px'
-        break
-      default:
-        break;
-    }
-    this.updateStyle()
-  }
-
-  updateColor(newValue) {
-    switch (newValue) {
-      case 'primary':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = ''
-        break
-      case 'danger':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-danger-opacity-3)'
-        break
-      case 'warning':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-warning-opacity-3)'
-        break
-      case 'success':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-success-opacity-3)'
-        break
-      case 'alarm':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-alarm-opacity-3)'
-        break
-      case 'relay':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-relay-opacity-3)'
-        break
-      case 'verification':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-verification-opacity-3)'
-        break
-      case 'restore':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-restore-opacity-3)'
-        break
-      case 'playback':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-playback-opacity-3)'
-        break
-      case 'note':
-        this._color = 'var(--color-text-contrast-high)'
-        this._backgroundColor = 'var(--color-note-opacity-3)'
+        this._lineHeight = '28px'
         break
       default:
         break;
