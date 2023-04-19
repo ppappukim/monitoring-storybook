@@ -12,6 +12,7 @@ export class cTooltip extends HTMLElement {
     this.div = document.createElement('div')
     this.tooltip = null
     this.parent = null
+    this.position = null
 
     // this.style.display = 'none'
 
@@ -42,6 +43,7 @@ export class cTooltip extends HTMLElement {
         break;
       case 'position':
         await this.updateInit()
+        this.position = newValue
         this.updatePosition(newValue)
         break;
       case 'checked':
@@ -63,13 +65,12 @@ export class cTooltip extends HTMLElement {
 
   updateStyle () {
     // this.div.style.position = 'absolute'
-    // this.div.style.position = 'absolute'
-    // this.div.style.position = 'absolute'
     const id = this.div.id;
     this.div.querySelector('style').textContent = 
     `
       #${id} {
         position: absolute;
+        pointer-events: none;
         color: var(--color-text-high);
         background-color: var(--color-black-opacity-9);
         display: flex;
@@ -97,26 +98,9 @@ export class cTooltip extends HTMLElement {
     this.setAttribute('id', `tooltip-id-${window.tooltipId}`);
 
     this.tooltip = document.getElementById(`tooltip-id-${window.tooltipId}`)
-    const children = Array.from(this.children)
-    
 
-    const treeWalker = document.createTreeWalker(
-      this,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
+    const children = Array.from(this.childNodes)
 
-    let textNode;
-    let text;
-    while (textNode = treeWalker.nextNode()) {
-      if (textNode) {
-        text = textNode 
-        break
-      }
-    }
-
-    this.div.append(text)
     children.forEach(child => {
       this.div.appendChild(child);
     });
@@ -129,9 +113,10 @@ export class cTooltip extends HTMLElement {
     console.log(this.parent);
     this.parent.addEventListener('mouseenter', (e) => {
       document.body.appendChild(this.div)
+      this.updatePosition()
     })
     this.parent.addEventListener('mouseleave', () => {
-      // document.body.removeChild(this.div)
+      document.body.removeChild(this.div)
     })
   }
 
@@ -159,12 +144,41 @@ export class cTooltip extends HTMLElement {
   }
   updatePosition(newValue) {
     if (!this.parent) return
+    if (!this.div) return
+
+    let left, right, top, bottom
     const parentRect = this.parent.getBoundingClientRect()
     const div = this.div.getBoundingClientRect()
+    if (!newValue) newValue = this.position
     switch (newValue) {
+      case 'left-center':
+        if ((parentRect.left - div.width) < 0) left = parentRect.right + 5
+        else left  = parentRect.left - div.width - 5
+        top  = (parentRect.top + parentRect.height/2) - div.height/2
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'right-center':
+        left  = parentRect.right + 5
+        top  = (parentRect.top + parentRect.height/2) - div.height/2
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
       case 'top-center':
-        this._left = parentRect.left + 'px'
-        this._top = parentRect.top + 'px'
+        left  = (parentRect.left + parentRect.width/2) - div.width/2
+        top  = parentRect.top - div.height - 5
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'bottom-center':
+        left  = (parentRect.left + parentRect.width/2) - div.width/2
+        top  = parentRect.bottom + 5
+
+        this._left = left + 'px'
+        this._top = top + 'px'
         break
     }
     this.updateStyle()

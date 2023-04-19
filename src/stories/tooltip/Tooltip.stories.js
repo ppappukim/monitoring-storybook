@@ -7,10 +7,7 @@ export default {
     layout: 'centered',
   },
   argTypes: {
-    placeholder: {
-      control: { type: 'text' },
-    },
-    type: {
+    text: {
       control: { type: 'text' },
     },
     position: {
@@ -23,10 +20,10 @@ export default {
 const Template = (args) => ({
   template: 
   `
-    <div>
+    <div style="display: inline-flex;">
       Hover Me
-      <c-tooltip position="${args.position}" >
-        this is my tooltip!
+      <c-tooltip position="${args.position}">
+        ${args.text}
       </c-tooltip>
     </div>
   `,
@@ -34,7 +31,7 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  type: 'text',
+  text: 'This is my tooltip!',
   position: 'top-center',
   size: 'medium',
 };
