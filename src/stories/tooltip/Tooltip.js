@@ -2,7 +2,7 @@
 
 export class cTooltip extends HTMLElement {
   static get observedAttributes() { 
-    return [ 'position','disabled','checked' ]
+    return [ 'position','delay' ]
   }
 
   constructor() {
@@ -13,41 +13,34 @@ export class cTooltip extends HTMLElement {
     this.tooltip = null
     this.parent = null
     this.position = null
+    this.isImageLoaded = false
+    this.isWithImage = false
+    this.mouseHovering = false
 
-    // this.style.display = 'none'
-
-    this._left = 0
-    this._right = 0
-    this._top = 0
-    this._bottom = 0
+    this._left = null
+    this._right = null
+    this._top = null
+    this._bottom = null
 
     const style = document.createElement('style');
     this.div.appendChild(style);
   }
 
-  connectedCallback() {
-    this.updateInit()
-    this.updateSize()
-    // this.updatePosition()
-    this.updateChecked()
+  async connectedCallback() {
+    await this.updateInit()
+    this.updatePosition()
   }
   rerederedCallback() {
-    console.log('rerederedCallback');
-    
   }
   async attributeChangedCallback (atr, oldValue, newValue){
-    console.log(atr);
     switch (atr) {
-      case 'size':
-        this.updateSize(newValue)
-        break;
       case 'position':
         await this.updateInit()
         this.position = newValue
         this.updatePosition(newValue)
         break;
-      case 'checked':
-        this.updateChecked(newValue)
+      case 'delay':
+        this.updateDelay(newValue)
         break;
       default:
         break;
@@ -55,16 +48,11 @@ export class cTooltip extends HTMLElement {
   }
 
   disconnectedCallback() {
-    
-    // Custom square element removed from page.
   }
   adoptedCallback() {
-
-    // Custom square element moved to new page.
   }
 
   updateStyle () {
-    // this.div.style.position = 'absolute'
     const id = this.div.id;
     this.div.querySelector('style').textContent = 
     `
@@ -72,21 +60,34 @@ export class cTooltip extends HTMLElement {
         position: absolute;
         pointer-events: none;
         color: var(--color-text-high);
-        background-color: var(--color-black-opacity-9);
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: fit-content;
-        height: fit-content;
-        padding: 10px;
+        background-color: var(--color-black);
+        max-width: 200px;
+        padding: 7px;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 600;
         border-radius: 3px;
+        word-break: break-word;
+        line-height: 18px;
+
         left: ${this._left};
         right: ${this._right};
         top: ${this._top};
         bottom: ${this._bottom};
+
+        visibility: hidden;
+        animation-name: fadein;
+        animation-duration: 1s; /* For animation working required event if not using duration*/
+        animation-fill-mode: both;
+      }
+
+      @keyframes fadein {
+        from {
+          visibility: hidden;
+        }
+      
+        to {
+          visibility: visible;
+        }
       }
     `
   }
@@ -102,46 +103,58 @@ export class cTooltip extends HTMLElement {
     const children = Array.from(this.childNodes)
 
     children.forEach(child => {
+      if (child.tagName === 'C-TOOLTIP-IMAGE') {
+        this.isWithImage = true
+        const imgEl = child.shadowRoot.getElementById('img')
+        if (imgEl) imgEl.addEventListener('load', () => {
+          this.isImageLoaded = true
+          if (this.mouseHovering) {
+            this.parent.style.cursor = 'auto'
+            if (this.div) document.body.appendChild(this.div)
+            this.updatePosition()
+          }
+          console.log('load!');
+        })
+        if (imgEl) imgEl.addEventListener('error', () => {
+          this.isImageLoaded = true
+          if (this.mouseHovering) {
+            this.parent.style.cursor = 'auto'
+            if (this.div) document.body.appendChild(this.div)
+            this.updatePosition()
+          }
+          console.log('load!');
+        })
+      }
       this.div.appendChild(child);
     });
 
     this.div.setAttribute('id', '--chekt-tooltip')
 
-    console.log(this.tooltip);
     if (!this.tooltip) return
     this.parent = this.tooltip.parentNode;
-    console.log(this.parent);
-    this.parent.addEventListener('mouseenter', (e) => {
-      document.body.appendChild(this.div)
+    this.parent.addEventListener('mouseenter', () => {
+      this.mouseHovering = true
+      if (this.isWithImage) {
+        this.div.style.display = 'flex'
+        this.div.style.flexDirection = 'column'
+        this.div.style.gap = '5px'
+      }
+      if (this.isWithImage && !this.isImageLoaded) return this.parent.style.cursor = 'progress'
+      if (this.div) document.body.appendChild(this.div)
       this.updatePosition()
     })
     this.parent.addEventListener('mouseleave', () => {
-      document.body.removeChild(this.div)
+      this.parent.style.cursor = 'auto'
+      this.mouseHovering = false
+      if (this.isWithImage && !this.isImageLoaded) return
+      if (this.div) document.body.removeChild(this.div)
     })
   }
 
-  updateSize(newValue) {
-    switch (newValue) {
-      case 'large':
-        this._padding = '0 14px'
-        this._fontSize = '18px'
-        this._lineHeight = '42px'
-        break
-      case 'medium':
-        this._padding = '0 10px'
-        this._fontSize = '14px'
-        this._lineHeight = '36px'
-        break
-      case 'small':
-        this._padding = '0 7px'
-        this._fontSize = '12px'
-        this._lineHeight = '28px'
-        break
-      default:
-        break;
-    }
-    this.updateStyle()
+  updateDelay(newValue) {
+    this.div.style.animationDelay = `${newValue}s`
   }
+
   updatePosition(newValue) {
     if (!this.parent) return
     if (!this.div) return
@@ -179,17 +192,6 @@ export class cTooltip extends HTMLElement {
 
         this._left = left + 'px'
         this._top = top + 'px'
-        break
-    }
-    this.updateStyle()
-  }
-  updateChecked(newValue) {
-    switch (newValue) {
-      case 'true':
-        this.classList.add('--checked');
-        break
-      case 'false':
-        this.classList.remove('--checked');
         break
     }
     this.updateStyle()

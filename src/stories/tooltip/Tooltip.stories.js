@@ -10,11 +10,23 @@ export default {
     text: {
       control: { type: 'text' },
     },
+    delay: {
+      control: { type: 'text' },
+    },
     position: {
       control: { type: 'radio' },
       options: ['left-center', 'right-center', 'top-center', 'bottom-center'],
     },
+    image: {
+      control: { type: 'boolean' },
+    },
   },
+};
+
+const imgElement = (isShow) => {
+  console.log(isShow);
+  if (isShow) return `<c-tooltip-image src="https://picsum.photos/200/120"></c-tooltip-image>`
+  else return ''
 };
 
 const Template = (args) => ({
@@ -22,7 +34,8 @@ const Template = (args) => ({
   `
     <div style="display: inline-flex;">
       Hover Me
-      <c-tooltip position="${args.position}">
+      <c-tooltip position="${args.position}" delay="${args.delay}">
+        ${imgElement(args.image)}
         ${args.text}
       </c-tooltip>
     </div>
@@ -30,8 +43,10 @@ const Template = (args) => ({
 });
 
 export const Default = Template.bind({});
+
 Default.args = {
   text: 'This is my tooltip!',
+  delay: '0.3',
   position: 'top-center',
-  size: 'medium',
+  image: false,
 };
