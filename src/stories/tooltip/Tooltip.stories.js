@@ -15,7 +15,7 @@ export default {
     },
     position: {
       control: { type: 'radio' },
-      options: ['left-center', 'right-center', 'top-center', 'bottom-center'],
+      options: ['left-center', 'left-top', 'left-bottom', 'right-center', 'right-top', 'right-bottom', 'top-center', 'top-left', 'top-right', 'bottom-center', 'bottom-left', 'bottom-right'],
     },
     image: {
       control: { type: 'boolean' },

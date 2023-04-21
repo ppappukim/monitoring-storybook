@@ -164,6 +164,7 @@ export class cTooltip extends HTMLElement {
     const div = this.div.getBoundingClientRect()
     if (!newValue) newValue = this.position
     switch (newValue) {
+      // left
       case 'left-center':
         if ((parentRect.left - div.width) < 0) left = parentRect.right + 5
         else left  = parentRect.left - div.width - 5
@@ -172,6 +173,22 @@ export class cTooltip extends HTMLElement {
         this._left = left + 'px'
         this._top = top + 'px'
         break
+      case 'left-top':
+        left  = parentRect.left - div.width - 5
+        top  = parentRect.top
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'left-bottom':
+        left  = parentRect.left - div.width - 5
+        top  = parentRect.bottom - div.height
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+
+      // right
       case 'right-center':
         left  = parentRect.right + 5
         top  = (parentRect.top + parentRect.height/2) - div.height/2
@@ -179,6 +196,22 @@ export class cTooltip extends HTMLElement {
         this._left = left + 'px'
         this._top = top + 'px'
         break
+      case 'right-top':
+        left  = parentRect.right + 5
+        top  = parentRect.top
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'right-bottom':
+        left  = parentRect.right + 5
+        top  = parentRect.bottom - div.height
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+
+      // top
       case 'top-center':
         left  = (parentRect.left + parentRect.width/2) - div.width/2
         top  = parentRect.top - div.height - 5
@@ -186,8 +219,38 @@ export class cTooltip extends HTMLElement {
         this._left = left + 'px'
         this._top = top + 'px'
         break
+      case 'top-left':
+        left  = parentRect.left
+        top  = parentRect.top - div.height - 5
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'top-right':
+        left  = parentRect.right - div.width
+        top  = parentRect.top - div.height - 5
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+
+      // bottom
       case 'bottom-center':
         left  = (parentRect.left + parentRect.width/2) - div.width/2
+        top  = parentRect.bottom + 5
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'bottom-left':
+        left  = parentRect.left
+        top  = parentRect.bottom + 5
+
+        this._left = left + 'px'
+        this._top = top + 'px'
+        break
+      case 'bottom-right':
+        left  = parentRect.right - div.width
         top  = parentRect.bottom + 5
 
         this._left = left + 'px'
