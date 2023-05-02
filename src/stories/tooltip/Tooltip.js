@@ -102,6 +102,13 @@ export class cTooltip extends HTMLElement {
 
     const children = Array.from(this.childNodes)
 
+    // tooltip안에 tag가 2개이상 있을경우.. 
+    if (children.length > 1) {
+      this.div.style.display = 'flex'
+      this.div.style.flexDirection = 'column'
+      this.div.style.gap = '5px'
+    }
+
     children.forEach(child => {
       if (child.tagName === 'C-TOOLTIP-IMAGE') {
         this.isWithImage = true
@@ -134,11 +141,6 @@ export class cTooltip extends HTMLElement {
     this.parent = this.tooltip.parentNode;
     this.parent.addEventListener('mouseenter', () => {
       this.mouseHovering = true
-      if (this.isWithImage) {
-        this.div.style.display = 'flex'
-        this.div.style.flexDirection = 'column'
-        this.div.style.gap = '5px'
-      }
       if (this.isWithImage && !this.isImageLoaded) return this.parent.style.cursor = 'progress'
       if (this.div) document.body.appendChild(this.div)
       this.updatePosition()

@@ -24,7 +24,6 @@ export default {
 };
 
 const imgElement = (isShow) => {
-  console.log(isShow);
   if (isShow) return `<c-tooltip-image src="https://picsum.photos/200/120"></c-tooltip-image>`
   else return ''
 };
