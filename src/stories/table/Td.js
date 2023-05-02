@@ -36,11 +36,10 @@ export class cTd extends HTMLElement {
     this.shadow.querySelector('style').textContent = 
     ` 
     :host {
-      display: table-cell;
-      white-space: inherit;
       padding: 10px;
       font-size: 14px;
-      overflow: hidden;
+      display: table-cell;
+      vertical-align: inherit;
     }
     `
   }

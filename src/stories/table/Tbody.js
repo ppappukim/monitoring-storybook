@@ -42,14 +42,12 @@ export class cTbody extends HTMLElement {
     this.shadow.querySelector('style').textContent = 
     `
       :host {
-        display: table-row-group;
-        vertical-align: middle;
-        flex-direction: column;
         background: white;
         white-space: inherit;
-      }
-      .body {
-        border-right: 1px solid rgb(238, 238, 237);
+
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
       }
     `
   }

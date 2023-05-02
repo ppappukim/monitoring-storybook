@@ -36,11 +36,10 @@ export class cThead extends HTMLElement {
     this.shadow.querySelector('style').textContent = 
     `
       :host {
-        display: table-header-group;
-        position: sticky;
         color: rgba(55, 53, 47, 0.65);
-        font-weight: 500;
-        white-space: inherit;
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
       }
     `
   }

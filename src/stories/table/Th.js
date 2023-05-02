@@ -15,6 +15,8 @@ export class cTh extends HTMLElement {
   }
 
   connectedCallback() {
+    const style = document.createElement('style');
+    this.appendChild(style);
     this.updateStyle()
   }
   rerederedCallback() {
@@ -41,6 +43,26 @@ export class cTh extends HTMLElement {
       padding: 10px;
       font-size: 14px;
       overflow: hidden;
+      position: relative;
+    }
+    `
+    this.querySelector('style').textContent = 
+    `
+    .resizer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 6px;
+      cursor: col-resize;
+      user-select: none;
+      opacity: 0;
+    }
+
+    .resizer:hover,
+    .resizing {
+      border-right: 4px solid var(--color-primary);
+      transition:opacity .3s;
+      opacity:1;
     }
     `
   }

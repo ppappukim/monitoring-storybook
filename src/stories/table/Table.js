@@ -2,7 +2,7 @@
 
 export class cTable extends HTMLElement {
   static get observedAttributes() { 
-    return ['expend', 'resize']
+    return ['expend', 'resize', 'density']
   }
 
   constructor() {
@@ -17,6 +17,10 @@ export class cTable extends HTMLElement {
   }
 
   connectedCallback() {
+    const style = document.createElement('style');
+    this.appendChild(style);
+    
+    this.updateResizer()
     this.updateStyle()
   }
   rerederedCallback() {
@@ -30,7 +34,8 @@ export class cTable extends HTMLElement {
       case 'resize':
         this.updateResize(newValue)
         break;
-      case 'checked':
+      case 'density':
+        this.updateDensity(oldValue, newValue)
         break;
       default:
         break;
@@ -57,30 +62,56 @@ export class cTable extends HTMLElement {
     }
   }
 
+  async updateResizer() {
+    const ths = this.querySelectorAll('c-th');
+
+    for (let i = 0; i < ths.length; i++) {
+      const th = ths[i];
+      const resizer = document.createElement('div');
+      resizer.classList.add('resizer');
+      resizer.style.height = `100%`;
+
+      th.appendChild(resizer);
+
+      this.createResizableColumn(th, resizer);
+    }
+  }
+
+
   updateResize(newValue) {
-    console.log(newValue);
+    const ths = this.querySelectorAll('c-td');
     switch (newValue) {
+
       case 'true':
-      const tds = this.querySelectorAll('c-td');
-
-      // Loop over them
-      [].forEach.call(tds, (col) => {
-        console.log(col);
-          // Create a resizer element
-          const resizer = document.createElement('div');
-          resizer.classList.add('resizer');
-
-          // Set the height
-          resizer.style.height = `${this.offsetHeight}px`;
-
-          // Add a resizer element to the column
-          col.appendChild(resizer);
-
-          // Will be implemented in the next section
-          this.createResizableColumn(col, resizer);
-      });
+        for (let i = 0; i < ths.length; i++) {
+          const th = ths[i];
+          th.style.pointerEvents = 'auto'
+        }
         break
+
       case 'false':
+        for (let i = 0; i < ths.length; i++) {
+          const th = ths[i];
+          th.style.pointerEvents = 'none'
+        }
+        
+        break
+    }
+  }
+
+  updateDensity(oldValue, newValue) {
+    switch (newValue) {
+      case 'default':
+        this.classList.remove(`density-${oldValue}`)
+        this.classList.add(`density-${newValue}`)
+        break
+      case 'comfortable':
+        this.classList.remove(`density-${oldValue}`)
+        this.classList.add(`density-${newValue}`)
+        break
+      case 'compact':
+        this.classList.remove(`density-${oldValue}`)
+        this.classList.add(`density-${newValue}`)
         break
     }
   }
@@ -89,31 +120,37 @@ export class cTable extends HTMLElement {
     this.shadow.querySelector('style').textContent = 
     `
       :host{
-        position:relative;
-        width: 100%;
-        max-width:100px;
+        border-collapse: collapse;
         display: table;
         box-sizing: border-box;
         text-indent: initial;
-        border-collapse: collapse;
+        white-space: normal;
+        line-height: normal;
+        font-weight: normal;
+        font-size: medium;
+        font-style: normal;
+        color: -internal-quirk-inherit;
+        text-align: start;
+        border-spacing: 2px;
+        border-color: gray;
+        font-variant: normal;
       }
-      .resizer {
-          /* Displayed at the right side of column */
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 5px;
-          cursor: col-resize;
-          user-select: none;
+    `
+    this.querySelector('style').textContent = 
+    `
+      .density-default c-td{
+        padding: 10px;
       }
-      .resizer:hover,
-      .resizing {
-          border-right: 2px solid blue;
+      .density-comfortable c-td{
+        padding: 14px;
+      }
+      .density-compact c-td{
+        padding: 7px;
       }
     `
   }
 
-  createResizableColumn(col, resizer) {
+  createResizableColumn(th, resizer) {
       // Track the current position of mouse
       let x = 0;
       let w = 0;
@@ -123,7 +160,7 @@ export class cTable extends HTMLElement {
           x = e.clientX;
 
           // Calculate the current width of column
-          const styles = window.getComputedStyle(col);
+          const styles = window.getComputedStyle(th);
           w = parseInt(styles.width, 10);
 
           // Attach listeners for document's events
@@ -138,13 +175,13 @@ export class cTable extends HTMLElement {
           const dx = e.clientX - x;
 
           // Update the width of column
-          col.style.width = `${w + dx}px`;
+          th.style.minWidth = `${w + dx}px`;
       };
 
       // When user releases the mouse, remove the existing event listeners
       const mouseUpHandler = function () {
-          document.removeEventListener('mousemove', mouseMoveHandler);
-          document.removeEventListener('mouseup', mouseUpHandler);
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
 
           resizer.classList.remove('resizing');
       };
