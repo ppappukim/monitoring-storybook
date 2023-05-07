@@ -9,10 +9,11 @@ export default {
       control: { type: 'radio' },
       options: ['default', 'comfortable', 'compact'],
     },
-    action: {
-      control: { type: 'boolean' },
+    header: {
+      control: { type: 'radio' },
+      options: ['static', 'sticky'],
     },
-    thumbnail: {
+    action: {
       control: { type: 'boolean' },
     },
     checkbox: {
@@ -40,8 +41,8 @@ const Template = (args) => ({
   `
   <c-table
   density="${args.density}"
+  header="${args.header}"
   action="${args.action}"
-  thumbnail="${args.thumbnail}"
   checkbox="${args.checkbox}"
   expend="${args.expend}"
   pagination="${args.pagination}"
@@ -69,8 +70,8 @@ export const CTable = Template.bind({});
 CTable.storyName = 'c-table';
 CTable.args = {
   density: 'default',
+  header: 'static',
   action: false,
-  thumbnail: false,
   checkbox: false,
   expend: false,
   pagination: false,

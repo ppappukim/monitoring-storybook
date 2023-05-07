@@ -40,6 +40,8 @@ export class cThead extends HTMLElement {
         display: table-row-group;
         vertical-align: middle;
         border-color: inherit;
+        background-color: var(--color-white);
+        box-shadow: inset 0px -1px rgb(233, 233, 231);
       }
     `
   }

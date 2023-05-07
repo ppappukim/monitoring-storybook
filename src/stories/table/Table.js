@@ -2,7 +2,7 @@
 
 export class cTable extends HTMLElement {
   static get observedAttributes() { 
-    return ['expend', 'resize', 'density']
+    return ['expend', 'resize', 'density', 'header']
   }
 
   constructor() {
@@ -20,7 +20,7 @@ export class cTable extends HTMLElement {
     const style = document.createElement('style');
     this.appendChild(style);
     
-    this.updateResizer()
+    this.initResize()
     this.updateStyle()
   }
   rerederedCallback() {
@@ -36,6 +36,9 @@ export class cTable extends HTMLElement {
         break;
       case 'density':
         this.updateDensity(oldValue, newValue)
+        break;
+      case 'header':
+        this.updateHeader(oldValue, newValue)
         break;
       default:
         break;
@@ -57,12 +60,13 @@ export class cTable extends HTMLElement {
         this.style.whiteSpace = 'nowrap'
         break
       case 'false':
+      default:
         this.style.whiteSpace = 'normal'
         break
     }
   }
 
-  async updateResizer() {
+  async initResize() {
     const ths = this.querySelectorAll('c-th');
 
     for (let i = 0; i < ths.length; i++) {
@@ -79,7 +83,7 @@ export class cTable extends HTMLElement {
 
 
   updateResize(newValue) {
-    const ths = this.querySelectorAll('c-td');
+    const ths = this.querySelectorAll('c-th');
     switch (newValue) {
 
       case 'true':
@@ -90,6 +94,7 @@ export class cTable extends HTMLElement {
         break
 
       case 'false':
+      default:
         for (let i = 0; i < ths.length; i++) {
           const th = ths[i];
           th.style.pointerEvents = 'none'
@@ -102,17 +107,31 @@ export class cTable extends HTMLElement {
   updateDensity(oldValue, newValue) {
     switch (newValue) {
       case 'default':
-        this.classList.remove(`density-${oldValue}`)
-        this.classList.add(`density-${newValue}`)
+        this.classList.remove(`c-density-${oldValue}`)
+        this.classList.add(`c-density-${newValue}`)
         break
       case 'comfortable':
-        this.classList.remove(`density-${oldValue}`)
-        this.classList.add(`density-${newValue}`)
+        this.classList.remove(`c-density-${oldValue}`)
+        this.classList.add(`c-density-${newValue}`)
         break
       case 'compact':
-        this.classList.remove(`density-${oldValue}`)
-        this.classList.add(`density-${newValue}`)
+        this.classList.remove(`c-density-${oldValue}`)
+        this.classList.add(`c-density-${newValue}`)
         break
+    }
+  }
+
+  updateHeader(oldValue, newValue) {
+    switch (newValue) {
+      case 'static':
+      default:
+        this.classList.remove(`c-header-${oldValue}`)
+        this.classList.add(`c-header-${newValue}`)
+        break
+      case 'sticky':
+        this.classList.remove(`c-header-${oldValue}`)
+        this.classList.add(`c-header-${newValue}`)
+        break 
     }
   }
 
@@ -138,14 +157,30 @@ export class cTable extends HTMLElement {
     `
     this.querySelector('style').textContent = 
     `
-      .density-default c-td{
+      .c-density-default c-td{
         padding: 10px;
       }
-      .density-comfortable c-td{
+      .c-density-comfortable c-td{
         padding: 14px;
       }
-      .density-compact c-td{
+      .c-density-compact c-td{
         padding: 7px;
+      }
+
+      c-tbody c-tr {
+        border-bottom: 1px solid rgb(233, 233, 231);
+      }
+      
+      .c-density-default c-thead{
+        padding: 10px;
+      }
+
+      .c-header-static c-thead{
+        position: static;
+      }
+      .c-header-sticky c-thead{
+        position: sticky;
+        top: 0;
       }
     `
   }
@@ -164,8 +199,8 @@ export class cTable extends HTMLElement {
           w = parseInt(styles.width, 10);
 
           // Attach listeners for document's events
-          document.addEventListener('mousemove', mouseMoveHandler);
-          document.addEventListener('mouseup', mouseUpHandler);
+          window.addEventListener('mousemove', mouseMoveHandler);
+          window.addEventListener('mouseup', mouseUpHandler);
           
           resizer.classList.add('resizing');
       };
@@ -180,8 +215,8 @@ export class cTable extends HTMLElement {
 
       // When user releases the mouse, remove the existing event listeners
       const mouseUpHandler = function () {
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
+          window.removeEventListener('mousemove', mouseMoveHandler);
+          window.removeEventListener('mouseup', mouseUpHandler);
 
           resizer.classList.remove('resizing');
       };

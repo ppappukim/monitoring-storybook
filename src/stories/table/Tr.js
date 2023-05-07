@@ -39,7 +39,6 @@ export class cTr extends HTMLElement {
         display: table-row;
         vertical-align: inherit;
         border-color: inherit;
-        border-bottom: 1px solid rgb(233, 233, 231);
         white-space: inherit;
       }
       .body {
